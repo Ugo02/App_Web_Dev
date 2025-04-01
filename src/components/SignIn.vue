@@ -3,13 +3,14 @@
 import {ref} from 'vue'
 import BasicInput from './BasicInput.vue';
 import { postJSON } from './api-client/api-client';
+import config from '../config.js';
 
 const username = ref('')
 const password = ref('')
 
 function onSubmit(e:Event){
     // e.preventDefault() le .prevent dérrière submit fait la même chose
-    postJSON("/api/token", {
+    postJSON(`${config.apiBaseURL}/api/token`, {
         username : username.value,
         password : password.value,
     })
@@ -30,7 +31,7 @@ function onSubmit(e:Event){
             />
             <BasicInput 
                 id = "password"
-                type = "text"
+                type = "password"
                 label = "Password"
                 v-model = "password"
             />
