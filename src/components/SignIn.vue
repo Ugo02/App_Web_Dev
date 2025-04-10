@@ -4,16 +4,26 @@ import {ref} from 'vue'
 import BasicInput from './BasicInput.vue';
 import { postJSON } from './api-client/api-client';
 import config from '../config.js';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const username = ref('')
 const password = ref('')
 
-function onSubmit(e:Event){
-    // e.preventDefault() le .prevent dérrière submit fait la même chose
-    postJSON(`${config.apiBaseURL}/api/token`, {
-        username : username.value,
-        password : password.value,
-    })
+async function onSubmit(e: Event) {
+    try {
+        const response = await postJSON(`${config.apiBaseURL}/api/token`, {
+            username: username.value,
+            password: password.value
+        });
+        
+        localStorage.setItem('token', response.token);
+        router.push('/movies');
+                
+    } catch (error) {
+        console.error("Login failed:", error);
+        alert("Login failed. Please check your credentials.");
+    }
 }
 
 </script>

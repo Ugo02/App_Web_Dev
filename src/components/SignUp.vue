@@ -3,18 +3,33 @@ import {ref} from 'vue'
 import BasicInput from './BasicInput.vue';
 import { postJSON } from './api-client/api-client';
 import config from '../config';
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter();
 const username = ref('')
 const password = ref('')
 const email = ref('')
 
-function onSubmit(e:Event){
-    postJSON(`${config.apiBaseURL}/api/users`, {
-        username : username.value,
-        email : email.value,
-        password : password.value,
-    })
+async function onSubmit(e: Event) {
+    try {
+        await postJSON(`${config.apiBaseURL}/api/users`, {
+            username: username.value,
+            password: password.value,
+            email: email.value
+        });
+
+        const loginResponse = await postJSON(`${config.apiBaseURL}/api/token`, {
+            username: username.value,
+            password: password.value
+        });
+
+        localStorage.setItem('token', loginResponse.token);
+        router.push('/movies');
+        
+    } catch (error) {
+        console.error("Registration failed:", error);
+        alert("Registration failed. The username or email may already exist.");
+    }
 }
 
 </script>
