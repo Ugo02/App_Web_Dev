@@ -1,18 +1,12 @@
 <script setup>
-
 import AppHeader from './components/AppHeader.vue';
-import { RouterLink, RouterView } from 'vue-router';
-
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-    <div>
+    <div class="app-container">
         <AppHeader />
-        <main>
-            <header>
-                <RouterLink to ='/signin'> Sign in</RouterLink> 
-                <RouterLink to ='/signup'> Sign up</RouterLink> 
-            </header>
+        <main class="main-content">
             <RouterView />
         </main>
     </div>

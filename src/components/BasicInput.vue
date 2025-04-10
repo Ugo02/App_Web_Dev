@@ -11,12 +11,12 @@ defineProps<{
 
 <template>
     
-    <div>
-        <label :for="id">{{ label }}</label>
+    <div class="input-group">
+        <label :for="id" class="input-label">{{ label }}</label>
         <input 
-            class = "bg-transparent rounded-large border-2"
-            :type
-            :id
+            class="input-field"
+            :type="type"
+            :id="id"
             :value="modelValue"
             @input="$emit('update:model-value', ($event.target as HTMLInputElement).value)">
     </div>

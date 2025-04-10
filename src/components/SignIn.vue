@@ -19,8 +19,7 @@ function onSubmit(e:Event){
 </script>
 
 <template>
-    <form id="login"
-    @submit.prevent="onSubmit($event)">
+    <form class="auth-form" @submit.prevent="onSubmit($event)">
         <fieldset>
             <legend>Please fill in the form</legend>
             <BasicInput 
@@ -35,7 +34,7 @@ function onSubmit(e:Event){
                 label = "Password"
                 v-model = "password"
             />
-            <input type="submit" value="Log in">
+            <input type="submit" class="submit-button" value="Log in">
         </fieldset>
     </form>
 </template>
